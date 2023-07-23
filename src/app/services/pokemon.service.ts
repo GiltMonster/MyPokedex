@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BASE_URL } from 'src/environments/environment';
 import { Pokemon } from '../models/pokemon/Pokemon';
 
 @Injectable({
@@ -12,6 +11,7 @@ export class PokemonService {
   constructor(private http: HttpClient) { }
 
   getPokemon(id: number): Observable<Pokemon>{
+    const BASE_URL = "https://pokeapi.co/api/v2/pokemon";
     return this.http.get<Pokemon>(`${BASE_URL}/${id}`);
   }
 
