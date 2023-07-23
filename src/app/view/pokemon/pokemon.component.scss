@@ -1,0 +1,96 @@
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+
+  .imgConteiner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .fundo {
+      z-index: 1;
+      background-color: #6964ff4d;
+      border: 5px #BCA7E8;
+      border-style: dotted;
+      border-radius: 100%;
+    margin: 5%;
+    width: 350px;
+    height: 350px;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 100s linear infinite;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .pokeImg {
+    z-index: 2;
+    position: absolute;
+    width: 90%;
+    height: auto;
+  }
+}
+
+
+.typeContainer{
+  z-index: 3;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
+  .typeImg{
+    margin: 5px 0px 0px 50px;
+    width: 60px;
+    height: auto;
+  }
+
+}
+}
+
+ion-card {
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+// ion-item-divider {
+//   // --background: #2e1942;
+//   // --color: #fff;
+
+//   // --padding-top: 5px;
+//   // --padding-bottom: 5px;
+//   // --padding-start: 10px;
+//   // --padding-end: 10px;
+// }
+
+.containerButton {
+  display: flex;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+
+  ion-button {
+    width: 100%;
+
+  }
+
+}
