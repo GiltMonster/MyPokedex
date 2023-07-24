@@ -15,11 +15,7 @@
 
   </div>
 
-
-
-
   <ion-progress-bar type="indeterminate" *ngIf="!loaded"></ion-progress-bar>
-
 
   <ion-card>
 
@@ -54,36 +50,44 @@
     </ion-list>
   </ion-card>
 
-
-
   <ion-card *ngIf="loaded">
     <ion-card-header>
       <ion-card-title>Name:</ion-card-title>
       <ion-card-subtitle>{{ pokemon?.name }}</ion-card-subtitle>
     </ion-card-header>
-    <ion-card-content>
-      <ion-list>
 
-        <ion-item-divider color="tertiary" lines="full">
-          <h2>Abilitys:</h2>
-        </ion-item-divider>
-        <ion-item button *ngFor="let ability of pokemon?.abilities" lines="full" detail="true">
-          <ion-label>{{ability?.ability?.name}}</ion-label>
-          <ion-icon name="information-circle" slot="end"></ion-icon>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
+    <ion-list>
+
+      <ion-item-divider color="tertiary" lines="full">
+        <h2>Abilitys:</h2>
+      </ion-item-divider>
+
+      <ion-item button *ngFor="let ability of pokemon?.abilities" lines="full" detail="true">
+        <ion-label>{{ability?.ability?.name}}</ion-label>
+        <ion-icon name="information-circle" slot="end"></ion-icon>
+      </ion-item>
+    </ion-list>
 
   </ion-card>
 </div>
 
-<div class="containerButton">
+<div *ngIf="loaded" class="containerButton">
 
   <ion-button expand="block" color="tertiary" [disabled]="disabled" (click)="backOne()">
     <ion-icon name="chevron-back-outline"></ion-icon>
   </ion-button>
 
   <ion-button expand="block" color="tertiary" (click)="goOne()">
+    <ion-icon name="chevron-forward-outline"></ion-icon>
+  </ion-button>
+</div>
+<div *ngIf="!loaded" class="containerButton">
+
+  <ion-button expand="block" color="tertiary" [disabled]="true" (click)="backOne()">
+    <ion-icon name="chevron-back-outline"></ion-icon>
+  </ion-button>
+
+  <ion-button expand="block" color="tertiary" [disabled]="true" (click)="goOne()">
     <ion-icon name="chevron-forward-outline"></ion-icon>
   </ion-button>
 </div>
