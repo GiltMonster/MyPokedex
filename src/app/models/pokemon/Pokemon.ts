@@ -8,17 +8,17 @@ import { Move } from "./move/Move";
 
 export class Pokemon {
   abilities?: Array<Ability>;
-  base_experience?: number;
+  base_experience: number = 0;
   forms?: Array<Form>;
   game_indices?: Array<Game_indices>;
-  height?: number;
+  height: number = 0;
   held_items?: any;
-  id?: number;
-  is_default?: Boolean;
-  location_area_encounters?: string;
+  id: number = 1;
+  is_default: boolean = false;
+  location_area_encounters?: string = '';
   moves?: Array<Move>;
-  name?: string;
-  order?: number;
+  name: string = 'bulbasaur';
+  order?: number = 0;
   past_types?: any;
   species?: {
     name: string,
@@ -27,5 +27,5 @@ export class Pokemon {
   sprites?: Sprites;
   stats?: Array<Stats>;
   types?: Array<Type>
-  weight?: number
+  weight?: number = 0;
 };
