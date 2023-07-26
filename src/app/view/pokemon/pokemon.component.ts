@@ -1,9 +1,8 @@
-import { Component, NgZone, OnInit } from '@angular/core';
-import { Subscription, catchError, shareReplay, throwError } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { catchError, shareReplay, throwError } from 'rxjs';
 import { Pokemon } from 'src/app/models/pokemon/Pokemon';
 import { PokemonService } from 'src/app/services/pokemon.service';
-import { OnlineStatusService, OnlineStatusType } from 'ngx-online-status';
-import { Type } from 'src/app/models/pokemon/Type';
 
 @Component({
   selector: 'app-pokemon',
@@ -17,16 +16,27 @@ export class PokemonComponent implements OnInit {
   loaded = false;
   disabled: boolean = true;
   tipo: any;
+  pokeName: string = '';
 
-  constructor(private pokeService: PokemonService) { }
+  constructor(
+    private pokeService: PokemonService,
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit(): void {
-    this.carregarPokemon();
-    this.idPokemon = 1;
+    this.pokeName = this.route.snapshot.params['namePokemon'];
+    this.carregaPokemomPelaRota();
 
   }
 
-
+  carregaPokemomPelaRota(){
+    this.pokeService.getPokemonWithName(this.pokeName).subscribe((res)=>{
+      this.pokemon = res;
+      this.tipo = res?.types;
+      this.idPokemon = res.id;
+      this.loaded = true;
+    });
+  }
 
   carregarPokemon(): void {
     try {
@@ -39,7 +49,7 @@ export class PokemonComponent implements OnInit {
       ).subscribe(res => {
         this.pokemon = res;
         this.tipo = res?.types;
-
+        this.idPokemon = res.id;
         this.loaded = true;
         console.log(this.pokemon);
       })
