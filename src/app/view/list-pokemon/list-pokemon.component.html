@@ -3,19 +3,23 @@
     <ion-card-header>
       <ion-label>
         <h1>Total pokemons currently:</h1>
-        <p>{{pokeList?.count}}</p>
+        <p>{{pokeCout}}</p>
       </ion-label>
     </ion-card-header>
 
     <ion-item-divider color="tertiary"></ion-item-divider>
 
-    <ion-item button detail="true" lines="full" *ngFor="let pokemon of pokeList?.results">
-      <ion-label><h2>{{pokemon.name}}</h2></ion-label>
+    <ion-item button detail="true" lines="full" *ngFor="let pokemon of pokeList" (click)="openItem(pokemon.name)">
+      <ion-label>
+        <h2>{{pokemon.name}}</h2>
+      </ion-label>
       <ion-icon name="information-circle" slot="end"></ion-icon>
     </ion-item>
-
-    <ion-button expand="block" color="tertiary">More...</ion-button>
+    <ion-progress-bar type="indeterminate" *ngIf="loadedMore"></ion-progress-bar>
   </ion-list>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-card>
 
 
@@ -42,7 +46,5 @@
       </ion-label>
       <ion-thumbnail slot="end"><ion-skeleton-text animated="true"></ion-skeleton-text></ion-thumbnail>
     </ion-item>
-
-    <ion-button  [disabled]="true" expand="block" color="tertiary">More...</ion-button>
   </ion-list>
 </ion-card>
