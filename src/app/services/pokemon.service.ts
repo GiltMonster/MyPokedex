@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Pokemon } from '../models/pokemon/Pokemon';
 import { PokeList } from '../models/pokeList/Pokelist';
-import { Ability } from '../models/pokemon/Abilitie';
+import { PokemonAbility } from '../models/ability/PokemonAbility';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +33,8 @@ export class PokemonService {
     return this.http.get<PokeList>(url);
   }
 
-  getAbilities(ability: string ): Observable<Ability>{
-    const ABILITY_URL = `https://pokeapi.co/api/v2/ability/${ability}/`;
-    return this.http.get<Ability>(ABILITY_URL);
+  getAbilities(nameAbility: string ): Observable<PokemonAbility>{
+    const ABILITY_URL = `https://pokeapi.co/api/v2/ability/${nameAbility}/`;
+    return this.http.get<PokemonAbility>(ABILITY_URL);
   }
 }

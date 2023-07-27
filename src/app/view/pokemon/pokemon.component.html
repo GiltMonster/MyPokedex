@@ -25,17 +25,17 @@
       </ion-card-title>
     </ion-card-header>
 
-      <ion-list>
-        <ion-item-divider color="tertiary" lines="full">
-          <ion-label>
-            <h2>Name and PokeId:</h2>
-          </ion-label>
-        </ion-item-divider>
-        <ion-item lines="full">
-          <ion-label>
-            <h2><ion-skeleton-text [animated]="true" style="width: 40%;"></ion-skeleton-text></h2>
-          </ion-label>
-        </ion-item>
+    <ion-list>
+      <ion-item-divider color="tertiary" lines="full">
+        <ion-label>
+          <h2>Name and PokeId:</h2>
+        </ion-label>
+      </ion-item-divider>
+      <ion-item lines="full">
+        <ion-label>
+          <h2><ion-skeleton-text [animated]="true" style="width: 40%;"></ion-skeleton-text></h2>
+        </ion-label>
+      </ion-item>
 
 
       <ion-item-divider color="tertiary" lines="full">
@@ -86,18 +86,17 @@
       </ion-card-title>
     </ion-card-header>
 
-      <ion-list>
-        <ion-item-divider color="tertiary" lines="full">
-          <ion-label>
-            <h2>Name and PokeId:</h2>
-          </ion-label>
-        </ion-item-divider>
-        <ion-item>
-          <ion-label>
-            <h2>{{ pokemon?.name }}, Nº{{pokemon?.id}}</h2>
-          </ion-label>
-        </ion-item>
-
+    <ion-list>
+      <ion-item-divider color="tertiary" lines="full">
+        <ion-label>
+          <h2>Name and PokeId:</h2>
+        </ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>
+          <h2>{{ pokemon?.name }}, Nº{{pokemon?.id}}</h2>
+        </ion-label>
+      </ion-item>
 
       <ion-item-divider color="tertiary" lines="full">
         <ion-label>
@@ -105,7 +104,92 @@
         </ion-label>
       </ion-item-divider>
 
-      <ion-item *ngFor="let ability of pokemon?.abilities" lines="full">
+      <ion-item *ngFor="let ability of pokemon?.abilities" lines="none" detail="true" button
+        (click)="abilityOpen(true, ability)">
+
+        <ion-modal [isOpen]="isModalOpen">
+          <ng-template>
+            <ion-header>
+              <ion-toolbar>
+                <ion-title *ngIf="loadedModal">{{pokeAbility?.name}}</ion-title>
+                <ion-title *ngIf="!loadedModal"><ion-skeleton-text [animated]="true"
+                    style="width: 30%;"></ion-skeleton-text></ion-title>
+                <ion-buttons slot="end">
+                  <ion-button (click)="abilityOpen(false, ability)">Close</ion-button>
+                </ion-buttons>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+              <ion-card>
+                <ion-card-header>
+                  <ion-card-title>
+                    <h1>More information about this ability:</h1>
+                  </ion-card-title>
+                </ion-card-header>
+
+                <ion-card-content *ngIf="!loadedModal">
+
+                  <ion-label>
+                    <h2>
+                      <ion-skeleton-text [animated]="true" style="width: 100%;"></ion-skeleton-text>
+                      <ion-skeleton-text [animated]="true" style="width: 100%;"></ion-skeleton-text>
+                      <ion-skeleton-text [animated]="true" style="width: 100%;"></ion-skeleton-text>
+                      <ion-skeleton-text [animated]="true" style="width: 100%;"></ion-skeleton-text>
+                      <ion-skeleton-text [animated]="true" style="width: 100%;"></ion-skeleton-text>
+                      <ion-skeleton-text [animated]="true" style="width: 100%;"></ion-skeleton-text>
+                      <ion-skeleton-text [animated]="true" style="width: 100%;"></ion-skeleton-text>
+                    </h2>
+                  </ion-label>
+                </ion-card-content>
+
+                <ion-list *ngIf="!loadedModal">
+
+                  <ion-item-divider color="tertiary" lines="full">
+                    <ion-label>
+                      <h2>More pokemons with this ability:</h2>
+                    </ion-label>
+                  </ion-item-divider>
+                  <ion-item detail="true" lines="full">
+                    <ion-label>
+                      <h2><ion-skeleton-text animated="true" style="width: 50%;"></ion-skeleton-text></h2>
+                    </ion-label>
+                    <ion-thumbnail slot="end"><ion-skeleton-text animated="true"></ion-skeleton-text></ion-thumbnail>
+                  </ion-item>
+                  <ion-item detail="true" lines="full">
+                    <ion-label>
+                      <h2><ion-skeleton-text animated="true" style="width: 50%;"></ion-skeleton-text></h2>
+                    </ion-label>
+                    <ion-thumbnail slot="end"><ion-skeleton-text animated="true"></ion-skeleton-text></ion-thumbnail>
+                  </ion-item>
+                </ion-list>
+
+                <ion-card-content>
+                  <ion-label>
+                    <h2 *ngIf="loadedModal">
+                      {{descAbility}}
+                    </h2>
+                  </ion-label>
+                </ion-card-content>
+
+                <ion-list *ngIf="loadedModal">
+                  <ion-item-divider color="tertiary" lines="full">
+                    <ion-label>
+                      <h2>More pokemons with this ability:</h2>
+                    </ion-label>
+                  </ion-item-divider>
+                  <ion-item *ngFor="let pokemon of pokeAbility?.pokemon" lines="full">
+                    <ion-label>
+                      <h2>{{pokemon.pokemon.name}}</h2>
+                    </ion-label>
+
+                  </ion-item>
+                </ion-list>
+
+              </ion-card>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+
         <ion-label>
           <h2>{{ability?.ability?.name}}</h2>
         </ion-label>
@@ -124,5 +208,3 @@
       </ion-button>
     </div>
   </ion-card>
-  </div>
-

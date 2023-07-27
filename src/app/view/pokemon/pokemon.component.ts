@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { catchError, shareReplay, throwError } from 'rxjs';
+import { PokemonAbility } from 'src/app/models/ability/PokemonAbility';
+import { Ability } from 'src/app/models/pokemon/Abilitie';
 import { Pokemon } from 'src/app/models/pokemon/Pokemon';
 import { PokemonService } from 'src/app/services/pokemon.service';
 
@@ -13,24 +15,49 @@ export class PokemonComponent implements OnInit {
 
   idPokemon = 1;
   pokemon?: Pokemon;
-  loaded = false;
+  pokeAbility?: PokemonAbility;
   disabled: boolean = true;
   tipo: any;
   pokeName: string = '';
+  descAbility: string = '';
 
+  isModalOpen = false;
+
+  loaded = false;
+  loadedModal = false;
   constructor(
     private pokeService: PokemonService,
     private route: ActivatedRoute
-    ) { }
+  ) { }
+
 
   ngOnInit(): void {
     this.pokeName = this.route.snapshot.params['namePokemon'];
     this.carregaPokemomPelaRota();
-
   }
 
-  carregaPokemomPelaRota(){
-    this.pokeService.getPokemonWithName(this.pokeName).subscribe((res)=>{
+  abilityOpen(isOpen: boolean, nameAbility: Ability) {
+    const name = nameAbility.ability.name;
+    if (isOpen) {
+      this.pokeService.getAbilities(name).subscribe((res)=>{
+        this.pokeAbility = res;
+        this.descAbility = res.effect_entries[1].effect;
+        this.loadedModal = true;
+        console.log(this.pokeAbility);
+
+      })
+    }else{
+      this.loadedModal = false;
+      this.descAbility = "";
+      console.log("fechou");
+    }
+
+    this.isModalOpen = isOpen;
+  }
+
+
+  carregaPokemomPelaRota() {
+    this.pokeService.getPokemonWithName(this.pokeName).subscribe((res) => {
       this.pokemon = res;
       this.tipo = res?.types;
       this.idPokemon = res.id;
@@ -70,7 +97,7 @@ export class PokemonComponent implements OnInit {
   backOne() {
     if (this.idPokemon === 1) {
       this.disabled = true;
-    } else{
+    } else {
       this.idPokemon--;
       this.loaded = false;
       this.carregarPokemon();
