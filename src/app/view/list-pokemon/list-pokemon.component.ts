@@ -50,7 +50,7 @@ export class ListPokemonComponent implements OnInit {
   });
   }
 
-  openItem(namePokemon: string): void {
+  openPokemon(namePokemon: string): void {
     this.navCtrl.navigateForward(["/tabs/tab2/", namePokemon]);
   }
 

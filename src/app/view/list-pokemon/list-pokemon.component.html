@@ -9,7 +9,7 @@
 
     <ion-item-divider color="tertiary"></ion-item-divider>
 
-    <ion-item button detail="true" lines="full" *ngFor="let pokemon of pokeList" (click)="openItem(pokemon.name)">
+    <ion-item button detail="true" lines="none" *ngFor="let pokemon of pokeList" (click)="openPokemon(pokemon.name)">
       <ion-label>
         <h2>{{pokemon.name}}</h2>
       </ion-label>
