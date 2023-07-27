@@ -1,7 +1,7 @@
 export class Ability {
-  ability ?: {
-    name: String;
-    url: String;
+  ability = {
+    name: '',
+    url: ''
   };
   is_hidden ?: Boolean;
   slot ?: number;

@@ -7,7 +7,7 @@ import { Type } from "./Type";
 import { Move } from "./move/Move";
 
 export class Pokemon {
-  abilities?: Array<Ability>;
+  abilities: Array<Ability> = [];
   base_experience: number = 0;
   forms?: Array<Form>;
   game_indices?: Array<Game_indices>;
